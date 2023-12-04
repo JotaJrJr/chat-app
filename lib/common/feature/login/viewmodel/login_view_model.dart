@@ -1,4 +1,4 @@
-import 'package:chat_app/common/database/auth/auth_service.dart';
+import 'package:chat_app/common/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

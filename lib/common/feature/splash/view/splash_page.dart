@@ -1,4 +1,4 @@
-import 'package:chat_app/common/database/auth/auth_gate.dart';
+import 'package:chat_app/common/services/auth/auth_gate.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {

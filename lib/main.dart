@@ -1,5 +1,5 @@
-import 'package:chat_app/common/database/auth/auth_gate.dart';
-import 'package:chat_app/common/database/auth/auth_service.dart';
+import 'package:chat_app/common/services/auth/auth_gate.dart';
+import 'package:chat_app/common/services/auth/auth_service.dart';
 import 'package:chat_app/common/feature/splash/view/splash_page.dart';
 import 'package:chat_app/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: SplashPage(),
+      home: AuthGateWidget(),
     );
   }
 }

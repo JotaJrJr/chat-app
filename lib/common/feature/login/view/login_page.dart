@@ -1,4 +1,4 @@
-import 'package:chat_app/common/database/auth/auth_service.dart';
+import 'package:chat_app/common/services/auth/auth_service.dart';
 import 'package:chat_app/common/feature/login/viewmodel/login_view_model.dart';
 import 'package:chat_app/common/feature/login/widgets/passoword_text_field_widget.dart';
 import 'package:chat_app/common/feature/sign_up/view/sign_up_page.dart';
@@ -98,7 +98,8 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 const Text("Não tem conta?"),
                 TextButton(
-                  onPressed: () => navigateToPage(const SignUpPage()),
+                  // onPressed: () => navigateToPage(const SignUpPage()),
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => SignUpPage())),
                   child: const Text("Cadastre-se"),
                 ),
               ],

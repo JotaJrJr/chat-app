@@ -1,4 +1,4 @@
-import 'package:chat_app/common/database/auth/auth_service.dart';
+import 'package:chat_app/common/services/auth/auth_service.dart';
 import 'package:chat_app/common/feature/home/view/home_page.dart';
 import 'package:chat_app/common/feature/login/view/login_page.dart';
 import 'package:chat_app/common/feature/login/widgets/passoword_text_field_widget.dart';
@@ -118,7 +118,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 const Text("Já possui uma conta?"),
                 const SizedBox(width: 8.0),
                 GestureDetector(
-                  onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const LoginPage())),
+                  // onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const LoginPage())),
+                  onTap: () => Navigator.pop(context),
                   child: const Text(
                     "Entrar",
                     style: TextStyle(

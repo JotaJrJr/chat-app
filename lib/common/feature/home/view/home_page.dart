@@ -1,9 +1,8 @@
-import 'package:chat_app/common/database/auth/auth_service.dart';
+import 'package:chat_app/common/services/auth/auth_service.dart';
 import 'package:chat_app/common/feature/chat/view/chat_page.dart';
 import 'package:chat_app/common/feature/home/viewmodel/home_view_model.dart';
 import 'package:chat_app/common/feature/login/view/login_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -34,7 +33,7 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             onPressed: () => _viewModel.signOut().then((value) {
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const LoginPage()));
+              // Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const LoginPage()));
             }),
             icon: const Icon(Icons.logout),
           ),
@@ -64,7 +63,7 @@ class _HomePageState extends State<HomePage> {
   Widget _buildUserListItem(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
 
-    if (_viewModel.firebaseAuth.currentUser != data['email']) {
+    if (_viewModel.firebaseAuth.currentUser!.email != data['email']) {
       return ListTile(
         title: Text(data['email']),
         onTap: () {
