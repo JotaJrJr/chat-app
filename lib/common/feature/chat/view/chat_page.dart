@@ -1,7 +1,9 @@
 import 'package:chat_app/common/feature/chat/viewmodel/chat_view_model.dart';
+import 'package:chat_app/common/feature/chat/widget/chat_bubble_widget.dart';
 import 'package:chat_app/common/widgets/text_form_field_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ChatPage extends StatefulWidget {
   final String receiverUserEmail;
@@ -37,7 +39,11 @@ class _ChatPageState extends State<ChatPage> {
                 Expanded(
                   child: _buildMessageList(),
                 ),
-                _buildMessageInput(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: _buildMessageInput(),
+                ),
+                const SizedBox(height: 18.0),
               ],
             );
           }),
@@ -72,17 +78,27 @@ class _ChatPageState extends State<ChatPage> {
 
     var alignment = (data['senderId'] == _viewModel.firebaseAuth.currentUser!.uid) ? Alignment.centerRight : Alignment.centerLeft;
 
+    Timestamp timestamp = data['timeStamp'] ?? Timestamp.now();
+    DateTime dateTime = timestamp.toDate();
+    String formattedTimestamp = DateFormat('dd/MM - HH:mm').format(dateTime);
+
     return Container(
       alignment: alignment,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.blue,
-          borderRadius: BorderRadius.circular(10),
-        ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Column(
+          crossAxisAlignment: (data['senderId'] == _viewModel.firebaseAuth.currentUser!.uid) ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          mainAxisAlignment: (data['senderId'] == _viewModel.firebaseAuth.currentUser!.uid) ? MainAxisAlignment.end : MainAxisAlignment.start,
           children: [
             Text(data['senderEmail']),
-            Text(data['message']),
+            // Text(data['message']),
+            // Text(formattedTimestamp),
+            ChatBubbleWidget(
+              message: data['message'],
+              mainAxisAlignment: (data['senderId'] == _viewModel.firebaseAuth.currentUser!.uid) ? MainAxisAlignment.end : MainAxisAlignment.start,
+              crossAxisAlignment: (data['senderId'] == _viewModel.firebaseAuth.currentUser!.uid) ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+              formattedTimestamp: formattedTimestamp,
+            )
           ],
         ),
       ),
@@ -90,18 +106,28 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   Widget _buildMessageInput() {
-    return Row(
-      children: [
-        Expanded(
-          child: TextFormFieldWidget(
-            controller: _viewModel.messageController,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextFormFieldWidget(
+              controller: _viewModel.messageController,
+            ),
           ),
-        ),
-        IconButton(
-          onPressed: () => _viewModel.sendMessage(),
-          icon: const Icon(Icons.send),
-        ),
-      ],
+          Container(
+            height: 50,
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            child: IconButton(
+              onPressed: () => _viewModel.sendMessage(),
+              icon: const Icon(Icons.send),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

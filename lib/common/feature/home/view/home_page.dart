@@ -74,6 +74,20 @@ class _HomePageState extends State<HomePage> {
             ),
           );
         },
+        // trailing: CircleAvatar(
+        //   backgroundColor: Colors.blue,
+        //   child: Text(
+        //     data['email'][0].toUpperCase(),
+        //     style: const TextStyle(color: Colors.white),
+        //   ),
+        // ),
+        trailing: const CircleAvatar(
+          backgroundColor: Colors.blue,
+          child: Text(
+            "7", // valor estático do que talvez possa ser implementado
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
       );
     } else {
       return const SizedBox();
